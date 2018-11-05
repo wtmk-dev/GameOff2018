@@ -5,33 +5,33 @@ using UnityEngine;
 public class Movement : MonoBehaviour {
 	
 	[SerializeField]
-	private float gravityScale, gravPower = 1f, jumpGrav = -.5f, fallGrav = 15f, jumpMod = 2f, jumpPower = 1f, speed = 5f;
+	private float gravPower = 1f, fallGrav = 15f, jumpMod = 2f, jumpPower = 1f, speed = 5f;
 	private bool isGrounded, isMoveable, isJumping, hasJumped = false;
 	private float jumpTime;
-	private Rigidbody2D rig;
+	private Rigidbody rig;
 	private Vector2 movement;
 
-	void OnCollisionEnter2D( Collision2D other ){
+	private float jumpGrav = -.5f;
+
+	void OnCollisionEnter( Collision other ){
 		if( other.gameObject.tag == "Floor" ){
 			isGrounded = true;
 			isJumping = false;
 			hasJumped = false;
 			jumpTime = 0f;
-			rig.gravityScale = gravityScale;
 		}
 	}
 
 
-	void OnCollisionExit2D( Collision2D other ) {
+	void OnCollisionExit( Collision other ) {
 		if( other.gameObject.tag == "Floor" ){
 			isGrounded = false;
 		}
 	}
 
 	void Awake(){
-		rig = GetComponent<Rigidbody2D>();
+		rig = GetComponent<Rigidbody>();
 		isMoveable = true;
-		gravityScale = rig.gravityScale;
 	}
 
 	void FixedUpdate(){
@@ -51,24 +51,24 @@ public class Movement : MonoBehaviour {
 
 	private void Move( Vector2 movement ){
 		rig.velocity = new Vector2( 0f, rig.velocity.y );
-		rig.AddForce( movement, ForceMode2D.Impulse );
+		rig.AddForce( movement, ForceMode.Impulse );
 	}
 
 	private void Jump(){
-		if( jumpTime > gravPower ){
+		if( jumpTime > gravPower ){ 
 			isJumping = false;
 		}
 
 		if( isJumping ){
 			jumpTime += Time.fixedDeltaTime;
-			rig.gravityScale -= jumpGrav;
-			rig.velocity += new Vector2( rig.velocity.x, jumpPower * jumpMod );
+			rig.velocity += new Vector3( rig.velocity.x, jumpPower * jumpMod, 0f );
 		}
 		else if( !isJumping && !isGrounded ){
-			rig.gravityScale += fallGrav;
+			// rig.gravityScale += fallGrav;
 			// if( rig.gravityScale > gravityScale * .5 ){
 			// 	rig.gravityScale = gravityScale;
 			// }
+			
 		}
 
 		if( Input.GetKeyDown( KeyCode.Space ) ){
@@ -79,9 +79,8 @@ public class Movement : MonoBehaviour {
 		
 		if( Input.GetKeyUp( KeyCode.Space ) ){
 			isJumping = false;
+			rig.velocity =new Vector2( rig.velocity.x, 0f );
 		}
-		
-		
 
 	}
 

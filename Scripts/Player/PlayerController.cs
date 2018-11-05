@@ -4,15 +4,23 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
+	private Player player;
 	private PlayerView view;
+	private GameObject prefabPlayer;
+	private GameObject goPlayer;
 
-	// Use this for initialization
-	void Start () {
-		
+	private Movement movement;
+	private Kit kit; 
+
+	void Awake(){
+		goPlayer = Resources.Load( "Player" ) as GameObject;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+	public void Init(){
+		goPlayer = Instantiate( goPlayer , transform.position, Quaternion.identity );
+		movement = goPlayer.GetComponent<Movement>();
+		kit = goPlayer.GetComponent<Kit>();
+		player = new Player();
 	}
+
 }
