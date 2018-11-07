@@ -71,13 +71,13 @@ public class Movement : MonoBehaviour {
 			
 		}
 
-		if( Input.GetKeyDown( KeyCode.Space ) ){
+		if( Input.GetKeyDown( KeyCode.Space ) || Input.GetKeyDown("joystick button 2") ){
 			if( isGrounded && !isJumping ){
 				isJumping = true;
 			}
 		}
 		
-		if( Input.GetKeyUp( KeyCode.Space ) ){
+		if( Input.GetKeyUp( KeyCode.Space ) || Input.GetKeyUp("joystick button 2") ){
 			isJumping = false;
 			rig.velocity =new Vector2( rig.velocity.x, 0f );
 		}
