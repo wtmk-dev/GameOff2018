@@ -8,7 +8,7 @@ public class Kit : MonoBehaviour {
 	private Stance stance;
 	private bool stanceChanged = false;
 
-	private bool isActive = true;
+	private bool isActive = false;
 
 	// short range 
 	public GameObject lSword;
@@ -28,6 +28,8 @@ public class Kit : MonoBehaviour {
 	public GameObject rShield;
 	private bool isBlocking;
 
+	private LevelUpController lvlController;
+
 	void Awake(){
 		lShield.SetActive( false );
 		rShield.SetActive( false );
@@ -44,7 +46,8 @@ public class Kit : MonoBehaviour {
 		}
 	}
 
-	public void Init(){
+	public void Init( LevelUpController lvlController ){
+		this.lvlController = lvlController;
 		isActive = true;
 	}
 

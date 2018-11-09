@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour {
 
 	private Movement movement;
 	private Kit kit; 
+	private LevelUpController lvlController;
 
 	void Awake(){
 		goPlayer = Resources.Load( "Player" ) as GameObject;
@@ -20,7 +21,12 @@ public class PlayerController : MonoBehaviour {
 		goPlayer = Instantiate( goPlayer , transform.position, Quaternion.identity );
 		movement = goPlayer.GetComponent<Movement>();
 		kit = goPlayer.GetComponent<Kit>();
+		lvlController = goPlayer.GetComponent<LevelUpController>();
 		player = new Player();
+
+		lvlController.Init( player );
+		movement.Init( lvlController );
+		kit.Init( lvlController );
 	}
 
 }

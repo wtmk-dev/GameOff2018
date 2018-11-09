@@ -5,13 +5,15 @@ using UnityEngine;
 public class Movement : MonoBehaviour {
 	
 	[SerializeField]
-	private float gravPower = 1f, fallGrav = 15f, jumpMod = 2f, jumpPower = 1f, speed = 5f;
+	private float gravPower = 1f, fallGrav = 15f, jumpMod = 2f, jumpPower = 1f;
 	private bool isGrounded, isMoveable, isJumping, hasJumped = false;
 	private float jumpTime;
 	private Rigidbody rig;
 	private Vector2 movement;
 
 	private float jumpGrav = -.5f;
+	
+	private LevelUpController lvlController;
 
 	void OnCollisionEnter( Collision other ){
 		if( other.gameObject.tag == "Floor" ){
@@ -40,11 +42,15 @@ public class Movement : MonoBehaviour {
 		}		
 	}
 
+	public void Init( LevelUpController lvlController ){
+		this.lvlController = lvlController;
+	}
+
 	private void CheckInput(){
 		var horizontal = Input.GetAxisRaw( "Horizontal" );
 		movement = new Vector2( horizontal, 0f );
 		if( isMoveable ){
-			Move( movement * speed );
+			Move( movement * lvlController.GetSpeed() );
 			Jump();
 		}
 	}
@@ -61,7 +67,7 @@ public class Movement : MonoBehaviour {
 
 		if( isJumping ){
 			jumpTime += Time.fixedDeltaTime;
-			rig.velocity += new Vector3( rig.velocity.x, jumpPower * jumpMod, 0f );
+			rig.velocity += new Vector3( rig.velocity.x, lvlController.GetJump() * jumpMod, 0f );
 		}
 		else if( !isJumping && !isGrounded ){
 			// rig.gravityScale += fallGrav;
@@ -74,12 +80,13 @@ public class Movement : MonoBehaviour {
 		if( Input.GetKeyDown( KeyCode.Space ) || Input.GetKeyDown("joystick button 2") ){
 			if( isGrounded && !isJumping ){
 				isJumping = true;
+				lvlController.JumpExp();
 			}
 		}
 		
-		if( Input.GetKeyUp( KeyCode.Space ) || Input.GetKeyUp("joystick button 2") ){
+		if( Input.GetKeyUp( KeyCode.Space ) && isJumping || Input.GetKeyUp("joystick button 2") && isJumping ){
 			isJumping = false;
-			rig.velocity =new Vector2( rig.velocity.x, 0f );
+			rig.velocity = new Vector2( rig.velocity.x, 0f );
 		}
 
 	}

@@ -179,48 +179,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1001 &268849294
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4092510525325166, guid: 7102864d2caa96a4b8fc2d0d12eb70a6, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4092510525325166, guid: 7102864d2caa96a4b8fc2d0d12eb70a6, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4092510525325166, guid: 7102864d2caa96a4b8fc2d0d12eb70a6, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4092510525325166, guid: 7102864d2caa96a4b8fc2d0d12eb70a6, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4092510525325166, guid: 7102864d2caa96a4b8fc2d0d12eb70a6, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4092510525325166, guid: 7102864d2caa96a4b8fc2d0d12eb70a6, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4092510525325166, guid: 7102864d2caa96a4b8fc2d0d12eb70a6, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4092510525325166, guid: 7102864d2caa96a4b8fc2d0d12eb70a6, type: 2}
-      propertyPath: m_RootOrder
-      value: 6
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 7102864d2caa96a4b8fc2d0d12eb70a6, type: 2}
-  m_IsPrefabAsset: 0
 --- !u!1 &378818295
 GameObject:
   m_ObjectHideFlags: 0
@@ -372,7 +330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 149d0fdcdcacb0d479e99ec06251e56a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1217785898}
+  player: {fileID: 0}
   offset: {x: 0, y: 4, z: -14}
   cameraSpeed: 100
 --- !u!1 &841454751
@@ -535,11 +493,6 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 930730251}
   m_CullTransparentMesh: 0
---- !u!4 &1217785898 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4092510525325166, guid: 7102864d2caa96a4b8fc2d0d12eb70a6,
-    type: 2}
-  m_PrefabInternal: {fileID: 268849294}
 --- !u!1 &1321063764
 GameObject:
   m_ObjectHideFlags: 0
