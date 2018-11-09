@@ -2,7 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class FollowCam : MonoBehaviour {
+public class CameraController : MonoBehaviour {
+
+	public static readonly string TAG = "CameraController";
 
 //holds the value of player game object
 	[SerializeField]
@@ -13,20 +15,21 @@ public class FollowCam : MonoBehaviour {
 
 //speed of camera
 	[SerializeField]
-	private float cameraSpeed;
+	private float cameraSpeed = 0f;
 
 	// Update is called once per frame
 	void FixedUpdate () {
 		if( player != null ){
-			cameraSpeed = 100;
 			Vector3 currentPos = player.transform.position + offset;
 			Vector3 toPos = new Vector3( currentPos.x, offset.y, offset.z );
 			transform.position = Vector3.Lerp(transform.position, toPos, Time.fixedDeltaTime * cameraSpeed);
 		} 
-		else {
-			cameraSpeed = 0;
-		}
 		
+	}
+
+	public void Init( Transform player ){
+		this.player = player;
+		cameraSpeed = 100f;
 	}
 
 

@@ -29,4 +29,8 @@ public class PlayerController : MonoBehaviour {
 		kit.Init( lvlController );
 	}
 
+	public Transform GetPlayerTransform(){
+		return goPlayer.transform;
+	}
+
 }
