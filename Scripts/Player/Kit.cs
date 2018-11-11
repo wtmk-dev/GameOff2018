@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class Kit : MonoBehaviour {
 
-	private enum Stance { LRANGE, SRANGE }
-	private Stance stance;
-	private bool stanceChanged = false;
-
 	private bool isActive = false;
 
 	// short range 
 	public GameObject lSword;
 	public GameObject rSword;
+
+	private GameObject goSwordReady;
+	private ParticleSystem swordReadyFX;
+	private bool isSwording;
 
 	// long range 
 	public GameObject lWhip;
@@ -21,36 +21,54 @@ public class Kit : MonoBehaviour {
 
 	// projectile
 	public GameObject shoot;
-	private bool canShoot = true;
+	private bool canShoot;
 
 	// Shield
 	public GameObject lShield;
 	public GameObject rShield;
 	private bool isBlocking;
 
+	private float dpad;
+
 	private LevelUpController lvlController;
+	private Movement movement;
 
 	void Awake(){
-		lShield.SetActive( false );
-		rShield.SetActive( false );
-		stance = Stance.LRANGE;
+		LoadResources();
+		DeactivateAll();
 	}
 
 	void Update(){
 		if( isActive ){
+			dpad = Input.GetAxisRaw( "Vertical" );
 			DeployShield();
 			DeployWhip();
 			DeploySword();	
 			DeployShoot();
-			SwapStance();	
 		}
 	}
 
-	public void Init( LevelUpController lvlController ){
+	public void Init( LevelUpController lvlController, Movement movement ){
 		this.lvlController = lvlController;
+		this.movement = movement;
 		isActive = true;
 	}
 
+	private void LoadResources(){
+		goSwordReady = Resources.Load( "SwordReadyFX" ) as GameObject;
+		goSwordReady = Instantiate( goSwordReady, transform.position, Quaternion.identity );
+		goSwordReady.transform.parent = transform;
+		swordReadyFX = goSwordReady.GetComponent<ParticleSystem>();
+	}
+
+	private void DeactivateAll(){
+		lShield.SetActive( false );
+		rShield.SetActive( false );
+		rSword.SetActive( false );
+		lSword.SetActive( false );
+		lWhip.SetActive( false );
+		rWhip.SetActive( false );
+	}
 	private void DeployShield(){
 		if( !isBlocking ){
 			if( Input.GetKeyDown( KeyCode.Mouse0 ) && !isAttacking || Input.GetKeyDown("joystick button 4") ){
@@ -81,19 +99,18 @@ public class Kit : MonoBehaviour {
 	}
 
 	private void DeployWhip(){
-		if( !isAttacking && stance == Stance.LRANGE ){
-			if( Input.GetKeyDown( KeyCode.Q ) && !isBlocking || Input.GetKeyDown("joystick button 3") && !isBlocking ){
-				lWhip.SetActive( true );
-				isAttacking = true;
+		if( !isAttacking && !isBlocking ){
+
+			if( Input.GetKeyDown( KeyCode.Q ) && dpad == 0 || Input.GetKeyDown("joystick button 3") && dpad == 0 ){
+				StartCoroutine( WhipAttack( true ) );
 			}
-			if( Input.GetKeyDown( KeyCode.E ) && !isBlocking || Input.GetKeyDown("joystick button 1") && !isBlocking ){
-				rWhip.SetActive( true );
-				isAttacking = true;
+			if( Input.GetKeyDown( KeyCode.E ) && dpad == 0 || Input.GetKeyDown("joystick button 1") && dpad == 0 ){
+				StartCoroutine( WhipAttack() );
 			}
 			
 
 		}
-		else if( stance == Stance.LRANGE ){
+		else if( isAttacking ){
 			if( Input.GetKeyUp( KeyCode.Q ) && !rWhip.activeSelf || Input.GetKeyUp("joystick button 3") && !rWhip.activeSelf ){
 				lWhip.SetActive( false );
 				isAttacking = false;
@@ -106,35 +123,82 @@ public class Kit : MonoBehaviour {
 
 		}
 		
+	}
 
+	private IEnumerator WhipAttack( bool isLeft = false ){
+		yield return new WaitForEndOfFrame();
+		isAttacking = true;
+		if( isLeft ){
+			lWhip.SetActive( true );
+		}else{
+			rWhip.SetActive( true );
+		}
+		yield return new WaitForSeconds( lvlController.GetWhip() );
+		if( isLeft ){
+			lWhip.SetActive( false );
+		}else{
+			rWhip.SetActive( false );
+		}
+		//yield return new WaitForSeconds( lvlController.GetWhip() );
+		OnWhipAttackComplete();
+	}
+
+	private void OnWhipAttackComplete(){
+		isAttacking = false;
+		StopCoroutine( WhipAttack() );
 	}
 
 	private void DeploySword(){
-		if( !isAttacking && stance == Stance.SRANGE ){
-			if( Input.GetKeyDown( KeyCode.Z ) && !isBlocking || Input.GetKeyDown("joystick button 3") && !isBlocking ){
-				lSword.SetActive( true );
-				isAttacking = true;
+		if( !isSwording && !isBlocking ){
+			
+			if( Input.GetKeyDown( KeyCode.Q ) && dpad >= 1 || Input.GetKeyDown("joystick button 3") && dpad >= 1 ){
+				StartCoroutine( SwordAttack( true ) );
 			}
-			if( Input.GetKeyDown( KeyCode.C ) && !isBlocking || Input.GetKeyDown("joystick button 1") && !isBlocking ){
+			if( Input.GetKeyDown( KeyCode.E ) && dpad >= 1 || Input.GetKeyDown("joystick button 1") && dpad >= 1 ){
 				rSword.SetActive( true );
-				isAttacking = true;
+				StartCoroutine( SwordAttack( false ) );
 			}
 			
 
 		}
-		else if( stance == Stance.SRANGE ) {
+		else if( isSwording ) {
 			if( Input.GetKeyUp( KeyCode.Z ) && !rSword.activeSelf || Input.GetKeyUp("joystick button 3") && !rSword.activeSelf ){
 				lSword.SetActive( false );
-				isAttacking = false;
 			}
 			if( Input.GetKeyUp( KeyCode.C ) && !lSword.activeSelf || Input.GetKeyUp("joystick button 1") && !lSword.activeSelf ){
 				rSword.SetActive( false );
-				isAttacking = false;
 			}
 
 		}
 		
 
+	}
+
+	private IEnumerator SwordAttack( bool isLeft = false ){
+		yield return new WaitForEndOfFrame();
+		isSwording = true;
+		if( isLeft ){
+			lSword.SetActive( true );
+		}
+		else{
+			rSword.SetActive( true );
+		}
+		movement.JumpSlash();
+		yield return new WaitForSeconds( lvlController.GetSword() / 2 );
+		if( isLeft ){
+			lSword.SetActive( false );
+		}
+		else{
+			rSword.SetActive( false );
+		}
+		yield return new WaitForSeconds( lvlController.GetSword() / 2 );
+		OnSwordAttackComplete();
+	}
+	
+	private void OnSwordAttackComplete(){
+		isSwording = false;
+		swordReadyFX.Play();
+		StopCoroutine( SwordAttack() );
 	}
 
 	private void DeployShoot(){
@@ -149,19 +213,7 @@ public class Kit : MonoBehaviour {
 
 	}
 
-	private void SwapStance(){
-		var vertical = Input.GetAxisRaw( "Vertical" );
-		if( vertical == 1 ){
-			stance = Stance.LRANGE;
-		}
-
-		if( vertical == -1 ){
-			stance = Stance.SRANGE;
-		}
-		
-	}
-
-
+	
 
 
 

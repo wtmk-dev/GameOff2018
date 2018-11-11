@@ -16,6 +16,7 @@ public class Player {
 	public int Speed{get;set;}
 	public int Sword{get;set;}
 	public int Shoot{get;set;}
+	public int Blood{get;set;}
 
 	public Player(){
 		int roll = DM.RandomNumber( 1, 4 );
@@ -65,7 +66,9 @@ public class Player {
 			Sword = 1;
 			Shoot = 2;
 			Block = 1;
-		}	
+		}
+
+		Blood = 3;	
 	}
 
 	

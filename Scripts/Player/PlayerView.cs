@@ -1,16 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerView : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
+	public static readonly string TAG = "PlayerView";
+	public TextMeshProUGUI playerBlood;
+
+	private Player player;
+	private bool isActive = false;
+
+	public void Init( Player player ){
+		this.player = player;
+		isActive = true;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+	void Update(){
+		if( isActive ){
+			UpdateStats();
+		}
+	}
+
+	private void UpdateStats(){
+		playerBlood.text = player.Blood + "";
 	}
 }

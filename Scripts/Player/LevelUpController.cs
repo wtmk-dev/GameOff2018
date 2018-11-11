@@ -32,6 +32,24 @@ public class LevelUpController : MonoBehaviour {
         return jump;
     }
 
+    public float GetSword(){
+        float sword = 5f;
+        sword -= (float) (player.Sword / 2f);
+        if( sword < 1.5f ){
+            sword = 1.5f;
+        }
+        return sword;
+    }
+
+    public float GetWhip(){
+        float whip = .2f;
+        whip += (float) (player.Whip / 10f);
+        if( whip > 1.5f ){
+            whip = 1.5f;
+        }
+        return whip;
+    }
+
     public void SpeedExp(){
         speedExp++;
         if( speedExp >= player.Speed * 2 ){

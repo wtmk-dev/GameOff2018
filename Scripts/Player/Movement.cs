@@ -31,11 +31,6 @@ public class Movement : MonoBehaviour {
 		}
 	}
 
-	void Awake(){
-		rig = GetComponent<Rigidbody>();
-		isMoveable = true;
-	}
-
 	void FixedUpdate(){
 		if( gameObject.activeSelf ){
 			CheckInput();
@@ -44,6 +39,12 @@ public class Movement : MonoBehaviour {
 
 	public void Init( LevelUpController lvlController ){
 		this.lvlController = lvlController;
+		rig = GetComponent<Rigidbody>();
+		isMoveable = true;
+	}
+
+	public void Kockback(){
+		Debug.Log( "kockback" );
 	}
 
 	private void CheckInput(){
@@ -77,7 +78,7 @@ public class Movement : MonoBehaviour {
 			
 		}
 
-		if( Input.GetKeyDown( KeyCode.Space ) || Input.GetKeyDown("joystick button 2") ){
+		if( Input.GetKey( KeyCode.Space ) || Input.GetKeyDown("joystick button 2") ){
 			if( isGrounded && !isJumping ){
 				isJumping = true;
 				lvlController.JumpExp();
@@ -89,6 +90,14 @@ public class Movement : MonoBehaviour {
 			rig.velocity = new Vector2( rig.velocity.x, 0f );
 		}
 
+	}
+
+	public void JumpSlash(){
+		rig.velocity += new Vector3( rig.velocity.x, lvlController.GetJump() * jumpMod, 0f );
+	}
+
+	public void ZeroVelocity(){
+		rig.velocity = Vector3.zero;
 	}
 
 }
