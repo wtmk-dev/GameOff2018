@@ -139,7 +139,7 @@ public class Kit : MonoBehaviour {
 		}else{
 			rWhip.SetActive( false );
 		}
-		//yield return new WaitForSeconds( lvlController.GetWhip() );
+		yield return new WaitForSeconds( lvlController.GetWhip() );
 		OnWhipAttackComplete();
 	}
 
@@ -168,10 +168,7 @@ public class Kit : MonoBehaviour {
 			if( Input.GetKeyUp( KeyCode.C ) && !lSword.activeSelf || Input.GetKeyUp("joystick button 1") && !lSword.activeSelf ){
 				rSword.SetActive( false );
 			}
-
 		}
-		
-
 	}
 
 	private IEnumerator SwordAttack( bool isLeft = false ){

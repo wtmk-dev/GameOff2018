@@ -6,7 +6,7 @@ public class Movement : MonoBehaviour {
 	
 	[SerializeField]
 	private float gravPower = 1f, fallGrav = 15f, jumpMod = 2f, jumpPower = 1f;
-	private bool isGrounded, isMoveable, isJumping, hasJumped = false;
+	private bool isInit, isGrounded, isMoveable, isJumping, hasJumped = false;
 	private float jumpTime;
 	private Rigidbody rig;
 	private Vector2 movement;
@@ -15,7 +15,18 @@ public class Movement : MonoBehaviour {
 	
 	private LevelUpController lvlController;
 
+	// void OnCollisionStay( Collision other ){
+	// 	//Debug.Log( "can jump" );
+	// 	if( other.gameObject.tag == "Floor" ){
+	// 		isGrounded = true;
+	// 		isJumping = false;
+	// 		hasJumped = false;
+	// 		jumpTime = 0f;
+	// 	}
+	// }
+
 	void OnCollisionEnter( Collision other ){
+		//Debug.Log( "can jump" );
 		if( other.gameObject.tag == "Floor" ){
 			isGrounded = true;
 			isJumping = false;
@@ -32,7 +43,7 @@ public class Movement : MonoBehaviour {
 	}
 
 	void FixedUpdate(){
-		if( gameObject.activeSelf ){
+		if( isInit ){
 			CheckInput();
 		}		
 	}
@@ -41,6 +52,7 @@ public class Movement : MonoBehaviour {
 		this.lvlController = lvlController;
 		rig = GetComponent<Rigidbody>();
 		isMoveable = true;
+		isInit = true;
 	}
 
 	public void Kockback(){
@@ -67,18 +79,15 @@ public class Movement : MonoBehaviour {
 		}
 
 		if( isJumping ){
+			Debug.Log( lvlController.GetSpeed() );
 			jumpTime += Time.fixedDeltaTime;
 			rig.velocity += new Vector3( rig.velocity.x, lvlController.GetJump() * jumpMod, 0f );
 		}
 		else if( !isJumping && !isGrounded ){
-			// rig.gravityScale += fallGrav;
-			// if( rig.gravityScale > gravityScale * .5 ){
-			// 	rig.gravityScale = gravityScale;
-			// }
-			
+			isGrounded = true; // maybe change to check if is grounded
 		}
 
-		if( Input.GetKey( KeyCode.Space ) || Input.GetKeyDown("joystick button 2") ){
+		if( Input.GetKeyDown( KeyCode.Space ) || Input.GetKeyDown("joystick button 2") ){
 			if( isGrounded && !isJumping ){
 				isJumping = true;
 				lvlController.JumpExp();

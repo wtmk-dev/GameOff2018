@@ -9,45 +9,46 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1437533720238908}
+  m_RootGameObject: {fileID: 1774390730940344}
   m_IsPrefabAsset: 1
---- !u!1 &1437533720238908
+--- !u!1 &1774390730940344
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4148305547047162}
-  - component: {fileID: 33071010257413924}
-  - component: {fileID: 23371318956023930}
-  - component: {fileID: 65046022597508898}
+  - component: {fileID: 4436254023556422}
+  - component: {fileID: 33166070367014428}
+  - component: {fileID: 23025562043685222}
+  - component: {fileID: 135738920125675186}
+  - component: {fileID: 114449264815327670}
   m_Layer: 0
-  m_Name: PinkTile
+  m_Name: SpitFire
   m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4148305547047162
+--- !u!4 &4436254023556422
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1437533720238908}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_GameObject: {fileID: 1774390730940344}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 14, y: 2.45, z: 0}
+  m_LocalScale: {x: 0.11324083, y: 0.10913168, z: 0.12073834}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &23371318956023930
+--- !u!23 &23025562043685222
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1437533720238908}
+  m_GameObject: {fileID: 1774390730940344}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -57,7 +58,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 54d566de749f09f4b9f49978a288e24e, type: 2}
+  - {fileID: 2100000, guid: 32928c0107249bc49ab60ea9df345fc0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -77,22 +78,35 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33071010257413924
+--- !u!33 &33166070367014428
 MeshFilter:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1437533720238908}
+  m_GameObject: {fileID: 1774390730940344}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65046022597508898
-BoxCollider:
+--- !u!114 &114449264815327670
+MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1437533720238908}
+  m_GameObject: {fileID: 1774390730940344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3d4762a4b6784247a3a5456cbed3df3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blastMax: 15
+  blastMin: 1
+--- !u!135 &135738920125675186
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1774390730940344}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
