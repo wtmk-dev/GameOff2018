@@ -23,6 +23,7 @@ public class Explode : MonoBehaviour {
 			StartCoroutine( Detonate() );
 		}
 	}
+
 	void OnTriggerEnter(Collider other) {
 		if( !isDetonate ){
 			//StartCoroutine( Detonate() );
@@ -50,5 +51,8 @@ public class Explode : MonoBehaviour {
 	}
 
 	
+
+
+
 
 }
