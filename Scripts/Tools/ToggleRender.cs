@@ -12,6 +12,14 @@ public class ToggleRender : MonoBehaviour {
 	private float killDelay = 2f;
 	private MeshRenderer meshRenderer;
 
+	void OnEnable(){
+		EventController.OnTriggerEventWithId += DestoryAfterEvent;
+	}
+
+	void OnDisable(){
+		EventController.OnTriggerEventWithId -= DestoryAfterEvent;
+	}
+
 	void Start(){
 		meshRenderer = target.GetComponent<MeshRenderer>();
 	}
@@ -28,5 +36,11 @@ public class ToggleRender : MonoBehaviour {
 	private IEnumerator KillDelay(){
 		yield return new WaitForSeconds( killDelay );
 		Destroy( target );
+	}
+
+	private void DestoryAfterEvent( int id ){
+		if( id == 1 ){
+			Destroy( gameObject );
+		}
 	}
 }

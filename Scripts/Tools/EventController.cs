@@ -21,26 +21,19 @@ public class EventController : MonoBehaviour {
 	}
 
 	private void RegesterKillEvent( int id ){
-		if( id == 0 ){
-			if( currentId != id ){
-				currentId = id;
-				killsBeforeTrigger = 0;
-			}
-
-			killsBeforeTrigger++;
+		if( currentId != id ){
+			currentId = id;
+			killsBeforeTrigger = 0;
 		}
+		killsBeforeTrigger++;
 	}
 
 	private void ToggleKill(){
-		if( currentId == 0 ){
-			
-			killsBeforeTrigger--;
-			if( killsBeforeTrigger == 0 ){
-				if( OnTriggerEventWithId != null  ){
-					OnTriggerEventWithId( currentId );
-				} 
-			}
-
+		killsBeforeTrigger--;
+		if( killsBeforeTrigger == 0 ){
+			if( OnTriggerEventWithId != null  ){
+				OnTriggerEventWithId( currentId );
+			} 
 		}
 	}
 	
