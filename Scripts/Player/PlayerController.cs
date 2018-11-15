@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
+	public static readonly string TAG = "Player";
+
 	private Player player;
 	private PlayerView view;
 	private Movement movement;

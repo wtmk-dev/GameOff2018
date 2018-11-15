@@ -10,8 +10,9 @@ public class Movement : MonoBehaviour {
 	private float jumpTime;
 	private Rigidbody rig;
 	private Vector2 movement;
-
 	private float jumpGrav = -.5f;
+
+	private string floorTag = "Floor";
 	
 	private LevelUpController lvlController;
 
@@ -26,8 +27,8 @@ public class Movement : MonoBehaviour {
 	// }
 
 	void OnCollisionEnter( Collision other ){
-		//Debug.Log( "can jump" );
-		if( other.gameObject.tag == "Floor" ){
+		Debug.Log( "OnCollisionEnter" );
+		if( other.gameObject.tag == floorTag ){
 			isGrounded = true;
 			isJumping = false;
 			hasJumped = false;
@@ -35,17 +36,35 @@ public class Movement : MonoBehaviour {
 		}
 	}
 
+	void OnCollisionStay( Collision other ){
+		//Debug.Log( "OnCollisionStay" );
+		if( other.gameObject.tag == floorTag ){
+			isGrounded = true;
+			isJumping = false;
+			hasJumped = false;
+			jumpTime = 0f;
+		}
+	}	
+
 
 	void OnCollisionExit( Collision other ) {
-		if( other.gameObject.tag == "Floor" ){
-			isGrounded = false;
-		}
+		Debug.Log( "OnCollisionExit" );
+		isGrounded = false;
+		
 	}
 
 	void FixedUpdate(){
 		if( isInit ){
 			CheckInput();
-		}		
+		}
+	
+		if( !isGrounded ){
+			Debug.Log( "isGrounded:" + isGrounded );
+			Debug.Log( "isJumping: " + isJumping );
+			Debug.Log( "hasJumped: " + hasJumped );	
+		}
+		
+		
 	}
 
 	public void Init( LevelUpController lvlController ){
@@ -69,11 +88,24 @@ public class Movement : MonoBehaviour {
 	}
 
 	private void Move( Vector2 movement ){
-		rig.velocity = new Vector2( 0f, rig.velocity.y );
+		rig.velocity = new Vector2( .025f, rig.velocity.y );
 		rig.AddForce( movement, ForceMode.Impulse );
 	}
 
 	private void Jump(){
+		if( Input.GetKey( KeyCode.Space ) || Input.GetKey("joystick button 2") ){
+			if( isGrounded && !isJumping ){
+				isJumping = true;
+				isGrounded = false;
+				lvlController.JumpExp();
+			}
+		}
+		
+		if( Input.GetKeyUp( KeyCode.Space ) && isJumping || Input.GetKeyUp("joystick button 2") && isJumping ){
+			isJumping = false;
+			rig.velocity = new Vector2( rig.velocity.x, 0f );
+		}
+
 		if( jumpTime > gravPower ){ 
 			isJumping = false;
 		}
@@ -84,19 +116,7 @@ public class Movement : MonoBehaviour {
 			rig.velocity += new Vector3( rig.velocity.x, lvlController.GetJump() * jumpMod, 0f );
 		}
 		else if( !isJumping && !isGrounded ){
-			isGrounded = true; // maybe change to check if is grounded
-		}
-
-		if( Input.GetKeyDown( KeyCode.Space ) || Input.GetKeyDown("joystick button 2") ){
-			if( isGrounded && !isJumping ){
-				isJumping = true;
-				lvlController.JumpExp();
-			}
-		}
-		
-		if( Input.GetKeyUp( KeyCode.Space ) && isJumping || Input.GetKeyUp("joystick button 2") && isJumping ){
-			isJumping = false;
-			rig.velocity = new Vector2( rig.velocity.x, 0f );
+			//isGrounded = true; // maybe change to check if is grounded
 		}
 
 	}

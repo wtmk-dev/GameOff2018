@@ -227,13 +227,20 @@ public class AttackPattern : MonoBehaviour
     }
 
     private void Init( GameObject player ){
-        thePlayer = player;
-        isInit = true;
+        if( !isInit ){
+            thePlayer = player;
+            BossController controller = GetComponent<BossController>();
+            BossModel boss = new BossModel( 100 );
+            controller.Init( boss );
+            isInit = true;
+        }
+        
     }
 
     void Update()
     {
-        if( isInit ){
+        bool stop = true; //debug check will stop the boss from running
+        if( isInit && !stop ){
             projectileUpdate();
             meleeUpdate();
 
