@@ -16,22 +16,28 @@ public class Movement : MonoBehaviour {
 	
 	private LevelUpController lvlController;
 
-	// void OnCollisionStay( Collision other ){
-	// 	//Debug.Log( "can jump" );
-	// 	if( other.gameObject.tag == "Floor" ){
-	// 		isGrounded = true;
-	// 		isJumping = false;
-	// 		hasJumped = false;
-	// 		jumpTime = 0f;
-	// 	}
-	// }
+    public GameObject PlayerModel;
+    private Animator playerAnimator;
+    private int currentAnimation = 0;
+    private bool isIdlingAnimation = false;
 
-	void OnCollisionEnter( Collision other ){
+    // void OnCollisionStay( Collision other ){
+    // 	//Debug.Log( "can jump" );
+    // 	if( other.gameObject.tag == "Floor" ){
+    // 		isGrounded = true;
+    // 		isJumping = false;
+    // 		hasJumped = false;
+    // 		jumpTime = 0f;
+    // 	}
+    // }
+
+    void OnCollisionEnter( Collision other ){
 		//Debug.Log( "OnCollisionEnter" );
 		if( other.gameObject.tag == floorTag ){
 			isGrounded = true;
 			isJumping = false;
-		}
+            returnToIdle();
+        }
 	}
 
 	void OnCollisionStay( Collision other ){
@@ -63,7 +69,8 @@ public class Movement : MonoBehaviour {
 	public void Init( LevelUpController lvlController ){
 		this.lvlController = lvlController;
 		rig = GetComponent<Rigidbody>();
-		isMoveable = true;
+        playerAnimator = PlayerModel.GetComponent<Animator>();
+        isMoveable = true;
 		isInit = true;
 	}
 
@@ -75,9 +82,28 @@ public class Movement : MonoBehaviour {
 		var horizontal = Input.GetAxisRaw( "Horizontal" );
 		movement = new Vector2( horizontal, 0f );
 		if( isMoveable ){
-			Move( movement * lvlController.GetSpeed() );
+            if (movement.x != 0)
+            {
+                if (movement.x < 0)
+                {
+                    this.transform.LookAt(new Vector3(this.transform.position.x - 20, this.transform.position.y, this.transform.position.z));
+                }
+                else
+                {
+                    this.transform.LookAt(new Vector3(this.transform.position.x + 20, this.transform.position.y, this.transform.position.z));
+                }
+                SetPlayerAnimation(20);
+            }
+            else
+            {
+                returnToIdle();
+            }
+            Move( movement * lvlController.GetSpeed() );
 			Jump();
-		}
+        }else
+        {
+            returnToIdle();
+        }
 	}
 
 	private void Move( Vector2 movement ){
@@ -100,7 +126,8 @@ public class Movement : MonoBehaviour {
 	}
 
 	private IEnumerator JumpOverTime(){
-		isJumping = true;
+        SetPlayerAnimation(16);
+        isJumping = true;
 		isGrounded = false;
         float elapsed = 0f;
 		float x = rig.velocity.x;
@@ -116,7 +143,7 @@ public class Movement : MonoBehaviour {
     }
 
 	private void OnJumpOverTimeComplete(){
-		isJumping = false;
+        isJumping = false;
 	}
 
 	public void JumpSlash(){
@@ -126,5 +153,35 @@ public class Movement : MonoBehaviour {
 	public void ZeroVelocity(){
 		rig.velocity = Vector3.zero;
 	}
+
+    void returnToIdle()
+    {
+        if (!isIdlingAnimation)
+        {
+            isIdlingAnimation = true;
+            SetPlayerAnimation(Random.Range(13, 15));
+        }
+    }
+
+    Vector3 RotatePointAroundPivot(Vector3 point, Vector3 pivot, Vector3 angles)
+    {
+        Vector3 dir = point - pivot; // get point direction relative to pivot
+        dir = Quaternion.Euler(angles) * dir; // rotate it
+        point = dir + pivot; // calculate rotated point
+        return point; // return it
+    }
+
+    private void SetPlayerAnimation(int i)
+    {
+        if (i < 13 || i > 15)
+        {
+            isIdlingAnimation = false;
+        }
+
+        if (i != currentAnimation)
+        {
+            playerAnimator.SetInteger("animation", i);
+        }
+    }
 
 }
