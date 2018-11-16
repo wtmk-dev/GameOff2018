@@ -15,9 +15,9 @@ public class BossController : MonoBehaviour {
 	}
 
 	void OnTriggerEnter( Collider other ){
-		Debug.Log( other.gameObject.tag );
+//		Debug.Log( other.gameObject.tag );
 		if( other.gameObject.tag == "Whip" ){
-			Debug.Log( "it hurts" );
+			//Debug.Log( "it hurts" );
 			LowerBloodByAmount( 1 );
 		}
 	}
@@ -31,7 +31,7 @@ public class BossController : MonoBehaviour {
 
 	private void LowerBloodByAmount( int amount ){
 		model.HP -= amount;
-		Debug.Log( model.HP );
+//		Debug.Log( model.HP );
 		if( model.HP < 0 ){
 			Debug.Log( "the world is saved...");
 		}

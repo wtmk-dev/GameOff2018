@@ -42,15 +42,15 @@ public class BossView : MonoBehaviour {
     }
 
     private void UpdateHealthBar( int currentHp ){
-        Debug.Log( currentHp );
-        Debug.Log( maxHp );
+//        Debug.Log( currentHp );
+//        Debug.Log( maxHp );
         float currentHpPct = (float) currentHp / (float) maxHp;
         StartCoroutine( ChangeHpPct( currentHpPct ) );
     }
 
 
     private IEnumerator ChangeHpPct( float pct ){
-        Debug.Log( pct );
+//        Debug.Log( pct );
         float pre = foregroundImage.fillAmount;
         float elapsed = 0f;
 

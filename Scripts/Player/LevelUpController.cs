@@ -65,7 +65,7 @@ public class LevelUpController : MonoBehaviour {
         if( jumpExp >= player.Jump * 2 ){
             player.Jump++;
             //play jump lvl up
-            Debug.Log( "Jump lvl up" );
+//            Debug.Log( "Jump lvl up" );
         }
         
     }
