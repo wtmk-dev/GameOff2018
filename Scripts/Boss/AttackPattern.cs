@@ -24,7 +24,7 @@ public class AttackPattern : MonoBehaviour
     private float moveTimer;
 
     private float timeGoes = 0; // track time
-    private Transform thisT; // what this is
+    private Transform thisT; // what this is - why did i do this ?
     private bool upDown = true; // toggle for up vs down
     private float rate; // for time math
     
@@ -51,7 +51,7 @@ public class AttackPattern : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        
+        print("DERP");
         //Attacks = new List<Attack>();
         projectiles = new List<Projectile>();
         melees = new List<Melee>();
@@ -96,7 +96,7 @@ public class AttackPattern : MonoBehaviour
 
     bool EnemyWithinRange( float range)
     {
-        //print(Vector3.Distance(thePlayer.transform.position, thisT.transform.localPosition));
+        print(Vector3.Distance(thePlayer.transform.position, thisT.transform.localPosition));
         if (Vector3.Distance(thePlayer.transform.position, thisT.transform.localPosition) <= range)
         {
             return true;
@@ -129,7 +129,7 @@ public class AttackPattern : MonoBehaviour
         {
             foreach (GameObject spot in item.validLocations)
             {
-                if (spot.transform.position == thisT.transform.position)
+                if (spot.transform.position == thisT.transform.localPosition)
                 {
                     canAttackSpot = true;
                 }
@@ -147,7 +147,7 @@ public class AttackPattern : MonoBehaviour
                     string bullet = JsonUtility.ToJson(item.projectile);
                     Projectile newBullet = JsonUtility.FromJson<Projectile>(bullet);
                     newBullet.visual = Instantiate(item.projectile.visual);
-                    newBullet.visual.transform.position = startPosition = thisT.transform.position;
+                    newBullet.visual.transform.position = startPosition = thisT.transform.localPosition;
                     newBullet.targetPosition = RotatePointAroundPivot(overshoot, startPosition, angle);
                     projectiles.Add(newBullet);
                 }
@@ -182,7 +182,7 @@ public class AttackPattern : MonoBehaviour
                                 break;
                         }
 
-                        newBullet.visual.transform.position = startPosition = thisT.transform.position + offset;
+                        newBullet.visual.transform.position = startPosition = thisT.transform.localPosition + offset;
                         melees.Add(newBullet);
                     }
                 }
@@ -206,7 +206,7 @@ public class AttackPattern : MonoBehaviour
         
         for (int i = 0; i < locationList.Count; i++){
             if (val <= (locationList[i].priority / 100) ) { 
-                nextPosition = locationList[i].location.transform.position;
+                nextPosition = locationList[i].location.transform.localPosition;
                 break;    // and stop the loop
             }else{
                 val -= (locationList[i].priority / 100);
@@ -218,6 +218,7 @@ public class AttackPattern : MonoBehaviour
     {
        StartBossTrigger.OnBossStart += Init;
     }
+
     void OnDisable()
     {
         StartBossTrigger.OnBossStart -= Init;
@@ -229,7 +230,7 @@ public class AttackPattern : MonoBehaviour
     private void Init( GameObject player ){
         if( !isInit ){
             thePlayer = player;
-            BossController controller = GetComponent<BossController>();
+            BossController controller = this.GetComponentInParent<BossController>();
             BossModel boss = new BossModel( 100 );
             controller.Init( boss );
             isInit = true;
@@ -239,8 +240,7 @@ public class AttackPattern : MonoBehaviour
 
     void Update()
     {
-        bool stop = true; //debug check will stop the boss from running
-        if( isInit && !stop ){
+        if( isInit  ){
             projectileUpdate();
             meleeUpdate();
 
@@ -355,7 +355,7 @@ public class AttackPattern : MonoBehaviour
     {
         facingDirections playerDirection;
 
-        if (thisT.transform.position.x > thePlayer.transform.position.x)
+        if (thisT.transform.localPosition.x > thePlayer.transform.position.x)
         {
             playerDirection = facingDirections.LEFT;
         }
@@ -365,9 +365,9 @@ public class AttackPattern : MonoBehaviour
         }
 
         // add check for overriding left / right
-        if(getDistance(thisT.transform.position.y , thePlayer.transform.position.y) > getDistance(thisT.transform.position.x, thePlayer.transform.position.x))
+        if(getDistance(thisT.transform.localPosition.y , thePlayer.transform.position.y) > getDistance(thisT.transform.localPosition.x, thePlayer.transform.position.x))
         {
-            if(thisT.transform.position.y > thePlayer.transform.position.y)
+            if(thisT.transform.localPosition.y > thePlayer.transform.position.y)
             {
                 playerDirection = facingDirections.DOWN;
             }

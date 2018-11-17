@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33557208290352388}
   - component: {fileID: 23780981758653710}
   - component: {fileID: 65240437062694472}
+  - component: {fileID: 114679171115427350}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -37,8 +38,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4327696590614780}
+  - component: {fileID: 114444233431493008}
   m_Layer: 0
-  m_Name: Location_0
+  m_Name: Location_ML
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52,8 +54,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4802672342784856}
+  - component: {fileID: 114872491598459254}
   m_Layer: 0
-  m_Name: Location_2
+  m_Name: Location_TM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -67,7 +70,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4747719708580406}
-  - component: {fileID: 114171782467505496}
+  - component: {fileID: 65933779414226892}
+  - component: {fileID: 114330759856487308}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Untagged
@@ -83,8 +87,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4971817444402322}
+  - component: {fileID: 114205859693778092}
   m_Layer: 0
-  m_Name: Location_1
+  m_Name: Location_MR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -98,8 +103,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4298642805102184}
+  - component: {fileID: 114629429948248146}
   m_Layer: 0
-  m_Name: Location_4
+  m_Name: Location_LL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -113,8 +119,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4577752367237088}
+  - component: {fileID: 114025847891782088}
   m_Layer: 0
-  m_Name: Location_3
+  m_Name: Location_LR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -127,7 +134,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1869801547986530}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10, y: -6, z: 0}
+  m_LocalPosition: {x: -10, y: -0.6399994, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4747719708580406}
@@ -140,7 +147,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1319751080760416}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -12, y: 0, z: 0}
+  m_LocalPosition: {x: -12, y: 5.36, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4747719708580406}
@@ -153,7 +160,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1998838054312038}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10, y: -6, z: 0}
+  m_LocalPosition: {x: 10, y: -0.6399994, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4747719708580406}
@@ -166,7 +173,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1723806570074902}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -22, z: 0}
+  m_LocalPosition: {x: 0, y: -25.75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4761109367917984}
@@ -198,7 +205,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1538397714293688}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 6, z: 0}
+  m_LocalPosition: {x: 0, y: 11.360001, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4747719708580406}
@@ -211,7 +218,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1837867495772512}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12, y: 0, z: 0}
+  m_LocalPosition: {x: 12, y: 5.3600006, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4747719708580406}
@@ -271,7 +278,47 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114171782467505496
+--- !u!65 &65933779414226892
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1723806570074902}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114025847891782088
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1998838054312038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cebcd86bbdea637418b790ff9d5d68be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayType: 0
+  displayMode: 1
+  size: 0.3
+--- !u!114 &114205859693778092
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1837867495772512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cebcd86bbdea637418b790ff9d5d68be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayType: 0
+  displayMode: 1
+  size: 0.3
+--- !u!114 &114330759856487308
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -279,43 +326,226 @@ MonoBehaviour:
   m_GameObject: {fileID: 1723806570074902}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0afda6df999815409c5af27b5189165, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114444233431493008
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1319751080760416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cebcd86bbdea637418b790ff9d5d68be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayType: 0
+  displayMode: 1
+  size: 0.3
+--- !u!114 &114629429948248146
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1869801547986530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cebcd86bbdea637418b790ff9d5d68be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayType: 0
+  displayMode: 1
+  size: 0.3
+--- !u!114 &114679171115427350
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1037845971463882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 68a71dd089333cd498d5f642f49fbf28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Attacks: []
+  Attacks:
+  - ranged: 1
+    towardsPlayer: 1
+    awayFromWallDirection: {x: 0, y: 0, z: 0}
+    count: 2
+    frequency: 2
+    projectileCount:
+    - {x: 0, y: 0, z: -15}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 15}
+    projectile:
+      visual: {fileID: 1008271355697378, guid: b02a0610cf2499b4dacf04d168c471b8, type: 2}
+      startPosition: {x: 0, y: 0, z: 0}
+      targetPosition: {x: 0, y: 0, z: 0}
+      lifespan: 3
+      spawnTime: 0
+      velocity: 2
+      rangeCheck: 1
+      range: 8
+      complete: 0
+    melee:
+      visual: {fileID: 0}
+      startPosition: {x: 0, y: 0, z: 0}
+      lifespan: 0
+      spawnTime: 0
+      spawnOffset: {x: 0, y: 0, z: 0}
+      rangeCheck: 0
+      range: 0
+      complete: 0
+    damage: 0
+    anyLocation: 1
+    validLocations: []
+    complete: 0
+  - ranged: 1
+    towardsPlayer: 1
+    awayFromWallDirection: {x: 0, y: 0, z: 0}
+    count: 2
+    frequency: 2
+    projectileCount:
+    - {x: 0, y: 0, z: -5}
+    - {x: 0, y: 0, z: 5}
+    projectile:
+      visual: {fileID: 1008271355697378, guid: f872ec6354faf9447aca61ebd20946d5, type: 2}
+      startPosition: {x: 0, y: 0, z: 0}
+      targetPosition: {x: 0, y: 0, z: 0}
+      lifespan: 4
+      spawnTime: 0
+      velocity: 1
+      rangeCheck: 0
+      range: 125
+      complete: 0
+    melee:
+      visual: {fileID: 0}
+      startPosition: {x: 0, y: 0, z: 0}
+      lifespan: 0
+      spawnTime: 0
+      spawnOffset: {x: 0, y: 0, z: 0}
+      rangeCheck: 0
+      range: 0
+      complete: 0
+    damage: 0
+    anyLocation: 0
+    validLocations:
+    - {fileID: 1319751080760416}
+    - {fileID: 1837867495772512}
+    - {fileID: 1538397714293688}
+    complete: 0
+  - ranged: 0
+    towardsPlayer: 0
+    awayFromWallDirection: {x: 0, y: 0, z: 0}
+    count: 1
+    frequency: 1
+    projectileCount: []
+    projectile:
+      visual: {fileID: 0}
+      startPosition: {x: 0, y: 0, z: 0}
+      targetPosition: {x: 0, y: 0, z: 0}
+      lifespan: 0
+      spawnTime: 0
+      velocity: 0
+      rangeCheck: 0
+      range: 0
+      complete: 0
+    melee:
+      visual: {fileID: 1809250726290960, guid: 4430e6eb1ea18ac47af40cdfada4ecc0, type: 2}
+      startPosition: {x: 0, y: 0, z: 0}
+      lifespan: 1
+      spawnTime: 0
+      spawnOffset: {x: 1, y: 0, z: 0}
+      rangeCheck: 1
+      range: 3
+      complete: 0
+    damage: 0
+    anyLocation: 0
+    validLocations:
+    - {fileID: 1998838054312038}
+    - {fileID: 1869801547986530}
+    complete: 0
+  - ranged: 0
+    towardsPlayer: 0
+    awayFromWallDirection: {x: 0, y: 0, z: 0}
+    count: 0
+    frequency: 0
+    projectileCount: []
+    projectile:
+      visual: {fileID: 0}
+      startPosition: {x: 0, y: 0, z: 0}
+      targetPosition: {x: 0, y: 0, z: 0}
+      lifespan: 0
+      spawnTime: 0
+      velocity: 0
+      rangeCheck: 0
+      range: 0
+      complete: 0
+    melee:
+      visual: {fileID: 1285841300311290, guid: d66c9dbbcea2836458e7391f8d4c4f9a, type: 2}
+      startPosition: {x: 0, y: 0, z: 0}
+      lifespan: 1
+      spawnTime: 0
+      spawnOffset: {x: 3, y: 0, z: 0}
+      rangeCheck: 1
+      range: 5
+      complete: 0
+    damage: 0
+    anyLocation: 0
+    validLocations:
+    - {fileID: 1998838054312038}
+    - {fileID: 1869801547986530}
+    - {fileID: 1319751080760416}
+    - {fileID: 1837867495772512}
+    complete: 0
   rotateSpeed: 5
   heightVariance: 2
   heightRate: 1
   locationList:
-  - location: {fileID: 1319751080760416}
-    priority: 5
-    onWall: 0
-    facingDirection: {x: 0, y: 0, z: 0}
-    leadsTo: 0
-    nextLocation: {fileID: 1538397714293688}
-  - location: {fileID: 1837867495772512}
+  - location: {fileID: 1538397714293688}
     priority: 10
     onWall: 0
-    facingDirection: {x: 0, y: 0, z: 0}
+    facingDirection: {x: 0, y: -1, z: 0}
     leadsTo: 0
-    nextLocation: {fileID: 1319751080760416}
-  - location: {fileID: 1538397714293688}
+    nextLocation: {fileID: 0}
+  - location: {fileID: 1319751080760416}
     priority: 15
     onWall: 0
-    facingDirection: {x: 0, y: 0, z: 0}
+    facingDirection: {x: 1, y: 0, z: 0}
     leadsTo: 0
-    nextLocation: {fileID: 1869801547986530}
+    nextLocation: {fileID: 0}
+  - location: {fileID: 1837867495772512}
+    priority: 15
+    onWall: 0
+    facingDirection: {x: -1, y: 0, z: 0}
+    leadsTo: 0
+    nextLocation: {fileID: 0}
   - location: {fileID: 1998838054312038}
-    priority: 20
+    priority: 30
     onWall: 0
-    facingDirection: {x: 0, y: 0, z: 0}
+    facingDirection: {x: -1, y: 0, z: 0}
     leadsTo: 0
-    nextLocation: {fileID: 1837867495772512}
+    nextLocation: {fileID: 0}
   - location: {fileID: 1869801547986530}
-    priority: 25
+    priority: 30
     onWall: 0
-    facingDirection: {x: 0, y: 0, z: 0}
+    facingDirection: {x: 1, y: 0, z: 0}
     leadsTo: 0
-    nextLocation: {fileID: 1538397714293688}
+    nextLocation: {fileID: 0}
   waitTime: 3
   movingrate: 1
+--- !u!114 &114872491598459254
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1538397714293688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cebcd86bbdea637418b790ff9d5d68be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayType: 0
+  displayMode: 1
+  size: 0.3

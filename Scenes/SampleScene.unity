@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.574817, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -152,42 +152,14 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
-    - target: {fileID: 114171782467505496, guid: ef2c6900d122e764c981bc5c6f0a08ac,
+    - target: {fileID: 114679171115427350, guid: ef2c6900d122e764c981bc5c6f0a08ac,
         type: 2}
-      propertyPath: m_Enabled
-      value: 1
+      propertyPath: Attacks.Array.data[1].projectile.range
+      value: 125
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef2c6900d122e764c981bc5c6f0a08ac, type: 2}
   m_IsPrefabAsset: 0
---- !u!1 &89850452 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1723806570074902, guid: ef2c6900d122e764c981bc5c6f0a08ac,
-    type: 2}
-  m_PrefabInternal: {fileID: 45872111}
---- !u!114 &89850455
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 89850452}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0afda6df999815409c5af27b5189165, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!65 &89850456
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 89850452}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &170076733
 GameObject:
   m_ObjectHideFlags: 0
@@ -399,7 +371,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4793549789513460, guid: e2ebf040520b7e44298331cdde4a427c, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -10
+      value: -14
       objectReference: {fileID: 0}
     - target: {fileID: 4793549789513460, guid: e2ebf040520b7e44298331cdde4a427c, type: 2}
       propertyPath: m_LocalRotation.x
