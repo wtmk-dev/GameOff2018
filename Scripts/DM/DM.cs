@@ -1,8 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class DM : MonoBehaviour {
+
+	public static Action<GameObject> OnPlayerCreated;
 
 	public bool isDebug = false;
 
@@ -18,6 +21,11 @@ public class DM : MonoBehaviour {
 
 	void Awake(){
 		goPlayer = Resources.Load( "Player" ) as GameObject;
+
+		if( OnPlayerCreated != null ){
+			OnPlayerCreated( goPlayer );
+		}
+
 		view = GameObject.FindWithTag( DMView.TAG ).GetComponent<DMView>();
 		cameraController = GameObject.FindWithTag( CameraController.TAG ).GetComponent<CameraController>();
 		mapController = GetComponent<MapController>();

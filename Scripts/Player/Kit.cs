@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Kit : MonoBehaviour {
 
+	public static readonly string SHIELD = "Shield";
+
 	private bool isActive = false;
 
 	// short range 
@@ -82,15 +84,13 @@ public class Kit : MonoBehaviour {
 
 	private void DeployWhip(){
 		if( !isAttacking && !isBlocking ){
-
-			if( Input.GetKeyDown( KeyCode.Q ) && dpad == 0 || Input.GetKeyDown("joystick button 1") && dpad == 0 ){
+			if( Input.GetKeyDown( KeyCode.Q ) || Input.GetKeyDown("joystick button 1") ){
 				StartCoroutine( WhipAttack( true ) );
 			}
 			
-
 		}
 		else if( isAttacking ){
-			if( Input.GetKeyUp( KeyCode.Q ) || Input.GetKeyUp("joystick button 3") ){
+			if( Input.GetKeyUp( KeyCode.Q ) || Input.GetKeyUp("joystick button 1") ){
 				lWhip.SetActive( false );
 				isAttacking = false;
 			}
@@ -124,12 +124,12 @@ public class Kit : MonoBehaviour {
 
 	private void DeploySword(){
 		if( !isSwording && !isBlocking ){
-			if( Input.GetKeyDown( KeyCode.E ) && dpad >= 1 || Input.GetKeyDown("joystick button 1") && dpad >= 1 ){
+			if( Input.GetKeyDown( KeyCode.E ) || Input.GetKeyDown("joystick button 3") ){
 				StartCoroutine( SwordAttack( true ) );
 			}
 		}
 		else if( isSwording ) {
-			if( Input.GetKeyUp( KeyCode.E ) || Input.GetKeyUp("joystick button 1") ){
+			if( Input.GetKeyUp( KeyCode.E ) || Input.GetKeyUp("joystick button 3") ){
 				lSword.SetActive( false );
 			}
 		}

@@ -4,11 +4,39 @@ using UnityEngine;
 
 public class ShootBullet : MonoBehaviour {
 
-	public GameObject bullet;
+	[SerializeField]
+	private GameObject bullet;
+	[SerializeField]
+	private bool left,right,up,down = false;
+	[SerializeField]
+	[Range(0,100)]
+	private float timeBetweenShots, speed, destroyAfter;
+	private MoveTransformOnAxis moveTransform;
 
-	private void ShootTarget( GameObject player ){
-		GameObject clone = Instantiate( bullet , transform.position, Quaternion.identity );
-		clone.transform.position = Vector3.MoveTowards( clone.transform.position, player.transform.position, 5f * Time.fixedDeltaTime );
-
+	void Start(){
+		StartCoroutine( SpawnBullet() );
 	}
+
+	private void Spawn(){
+		GameObject clone = Instantiate( bullet , transform.position, Quaternion.identity );
+		moveTransform = clone.GetComponent<MoveTransformOnAxis>();
+		moveTransform.Init( left, right, up, down, speed, destroyAfter );
+	}
+
+	private IEnumerator SpawnBullet(){
+		float elapsed = 0;
+		while( elapsed < timeBetweenShots ){
+			elapsed += Time.deltaTime;
+			yield return null;
+		}
+		OnSpawnBulletComplete();
+	}
+
+	private void OnSpawnBulletComplete(){
+		Spawn();
+		StopCoroutine( SpawnBullet() );
+		StartCoroutine( SpawnBullet() );
+	}
+
+
 }

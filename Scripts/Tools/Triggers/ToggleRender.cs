@@ -10,6 +10,8 @@ public class ToggleRender : MonoBehaviour {
 	private bool destoryAfter;
 	[SerializeField]
 	private float killDelay = 2f;
+	[SerializeField]
+	private int id;
 	private MeshRenderer meshRenderer;
 
 	void OnEnable(){
@@ -39,7 +41,7 @@ public class ToggleRender : MonoBehaviour {
 	}
 
 	private void DestoryAfterEvent( int id ){
-		if( id == 1 ){
+		if( this.id == id ){
 			Destroy( gameObject );
 		}
 	}
