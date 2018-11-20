@@ -17,25 +17,27 @@ public class Player {
 	public int Sword{get;set;}
 	public int Shoot{get;set;}
 	public int Blood{get;set;}
+	public int maxHp;
 
-	public Player(){
+	public Player( int maxHp ){
 		int roll = DM.RandomNumber( 1, 4 );
-		job = GetJob( roll );
+		job = GetJob( roll, maxHp );
 		SetStartingJob( job );
 		Debug.Log( "Green " + job + " needs food badly." );
 	}
 
-	private Job GetJob( int roll ){
+	private Job GetJob( int roll, int maxHp ){
 		Job job = Job.WARRIOR;
 
 		if( roll == 1 ){
 			job = Job.WARRIOR;
+			Blood = maxHp +1;
 		}
 		else if( roll == 2 ){
 			job = Job.THIEF;
 		} 
 		else if( roll == 3 ){
-			job = Job.MAGE;
+			job = Job.MAGE -1;
 		}
 
 		return job;
@@ -68,7 +70,7 @@ public class Player {
 			Block = 1;
 		}
 
-		Blood = 3;	
+		
 	}
 
 	

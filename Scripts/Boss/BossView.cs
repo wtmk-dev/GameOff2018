@@ -14,21 +14,10 @@ public class BossView : MonoBehaviour {
     private BossController controller;
     private int maxHp;
 
-
-    void OnEnable() { // future brandon test if this works so you dont need to call onDestory
-     //   if( controller != null ){
-            //controller.OnHealthChange += UpdateHealthBar;
-       // }
-    }
-
-    void OnDisable(){
-        //if( controller != null ){
-           // controller.OnHealthChange -= UpdateHealthBar;
-       // }
-    }
-
     void OnDestroy(){
-        controller.OnHealthChange -= UpdateHealthBar;
+        if( controller != null ){
+            controller.OnHealthChange -= UpdateHealthBar;
+        }
     }
 
     public void Init( BossController controller, int maxHp ){
