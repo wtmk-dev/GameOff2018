@@ -5,6 +5,8 @@ using System.Collections.Generic;
 public class AttackPattern : MonoBehaviour
 {
     [SerializeField]
+    private List<TinyDict> Animations;
+    [SerializeField]
     private List<Attack> Attacks;
     private bool attackComplete = true;
 
@@ -39,6 +41,9 @@ public class AttackPattern : MonoBehaviour
     bool firstTime = true;
 
     private bool isInit;
+    private Animator bossAnimator;
+    private int currentAnimation = 0;
+    private bool isIdlingAnimation = false;
 
     enum facingDirections
     {
@@ -55,10 +60,11 @@ public class AttackPattern : MonoBehaviour
         //Attacks = new List<Attack>();
         projectiles = new List<Projectile>();
         melees = new List<Melee>();
-        thisT = transform;
+        //thisT = transform;
+        bossAnimator = this.GetComponent<Animator>();
         if (firstTime)
         {
-            startPosition = thisT.transform.localPosition;
+            startPosition = this.transform.localPosition;
         }
         rate = 1 / heightRate;
         isActive = true;
@@ -74,7 +80,8 @@ public class AttackPattern : MonoBehaviour
     {
         print("arrived !");
         print(GetPlayerDirection());
-        startPosition = thisT.transform.localPosition;
+        returnToIdle();
+        startPosition = this.transform.localPosition;
         ChooseNewPosition();
         AttackChoices();
         moveTimerElapsed = false;
@@ -94,10 +101,33 @@ public class AttackPattern : MonoBehaviour
         }
     }
 
+    IEnumerator playerTest()
+    {
+        
+        GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        sphere.GetComponent<SphereCollider>().enabled = false;
+        sphere.transform.localScale = new Vector3(1f, 1f, 1f);
+        sphere.transform.position = thePlayer.transform.position;
+        sphere.GetComponent<Renderer>().material.color = Color.red;
+       
+        
+        GameObject sphere1 = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        sphere1.GetComponent<SphereCollider>().enabled = false;
+        sphere1.transform.localScale = new Vector3(1f, 1f, 1f);
+        sphere1.transform.position = this.transform.position;
+        sphere1.GetComponent<Renderer>().material.color = Color.blue;
+        yield return new WaitForSeconds(2);
+
+        Destroy(sphere);
+        Destroy(sphere1);
+
+    }
+
     bool EnemyWithinRange( float range)
     {
-        print(Vector3.Distance(thePlayer.transform.position, thisT.transform.localPosition));
-        if (Vector3.Distance(thePlayer.transform.position, thisT.transform.localPosition) <= range)
+        StartCoroutine(playerTest());
+        print(Vector3.Distance(thePlayer.transform.localPosition, this.transform.position));
+        if (Vector3.Distance(thePlayer.transform.position, this.transform.position) <= range)
         {
             return true;
         }
@@ -118,7 +148,7 @@ public class AttackPattern : MonoBehaviour
     //this needs to notify about sending a spin
 	IEnumerator spawnAttack(Attack item)
     {
-        Vector3 overshoot = (startPosition + 3 * (thePlayer.transform.position - startPosition));
+        Vector3 overshoot = (this.transform.position + (3 * (thePlayer.transform.position - this.transform.position)));
 
         bool canAttackSpot = false;
         if (item.anyLocation)
@@ -129,7 +159,7 @@ public class AttackPattern : MonoBehaviour
         {
             foreach (GameObject spot in item.validLocations)
             {
-                if (spot.transform.position == thisT.transform.localPosition)
+                if (spot.transform.position == this.transform.position)
                 {
                     canAttackSpot = true;
                 }
@@ -147,8 +177,8 @@ public class AttackPattern : MonoBehaviour
                     string bullet = JsonUtility.ToJson(item.projectile);
                     Projectile newBullet = JsonUtility.FromJson<Projectile>(bullet);
                     newBullet.visual = Instantiate(item.projectile.visual);
-                    newBullet.visual.transform.position = startPosition = thisT.transform.localPosition;
-                    newBullet.targetPosition = RotatePointAroundPivot(overshoot, startPosition, angle);
+                    newBullet.visual.transform.position = this.transform.position;
+                    newBullet.targetPosition = RotatePointAroundPivot(overshoot, this.transform.localPosition, angle); // thePlayer.transform.position is on target
                     projectiles.Add(newBullet);
                 }
             }
@@ -182,7 +212,7 @@ public class AttackPattern : MonoBehaviour
                                 break;
                         }
 
-                        newBullet.visual.transform.position = startPosition = thisT.transform.localPosition + offset;
+                        newBullet.visual.transform.position = this.transform.position + offset;
                         melees.Add(newBullet);
                     }
                 }
@@ -232,6 +262,7 @@ public class AttackPattern : MonoBehaviour
             thePlayer = player;
             BossController controller = this.GetComponentInParent<BossController>();
             BossModel boss = new BossModel( 100 );
+            print(boss);
             controller.Init( boss );
             isInit = true;
         }
@@ -260,8 +291,17 @@ public class AttackPattern : MonoBehaviour
 
             if (movingPosition)
             {
+                SetPlayerAnimation(AnimationTranslator("walk"));
+                if (nextPosition.x < this.transform.localPosition.x)
+                {
+                    this.transform.LookAt(new Vector3(this.transform.position.x - 20, this.transform.position.y, this.transform.position.z));
+                }
+                else
+                {
+                    this.transform.LookAt(new Vector3(this.transform.position.x + 20, this.transform.position.y, this.transform.position.z));
+                }
                 if (moveindex < 1.0){
-                    thisT.transform.localPosition = Vector3.Lerp(startPosition, nextPosition,  moveindex);
+                    this.transform.localPosition = Vector3.Lerp(startPosition, nextPosition,  moveindex);
                     moveindex += movingrate * Time.deltaTime;
                 }else{
                     print("move position is done");
@@ -270,45 +310,7 @@ public class AttackPattern : MonoBehaviour
                     OnArrive();
                 }
             }
-
-            if (isActive && moveTimerElapsed && !movingPosition)
-            {
-                // get time to start over at the specified interval for up / down
-                if (timeGoes >= heightRate)
-                {
-                    timeGoes = 0f;
-                    upDown = !upDown;
-                }
-                else
-                {
-                    timeGoes += Time.deltaTime;
-                }
-                // lerp between our two posistions
-                if (index < 1.0)
-                {
-                    if (upDown)
-                    {
-                        thisT.transform.localPosition = Vector3.Lerp(startPosition, new Vector3(startPosition.x, startPosition.y + heightVariance, startPosition.z), index);
-                        index += rate * Time.deltaTime;
-                    }
-                    else
-                    {
-                        thisT.transform.localPosition = Vector3.Lerp(new Vector3(startPosition.x, startPosition.y + heightVariance, startPosition.z), startPosition, index);
-                        index += rate * Time.deltaTime;
-                    }
-                }
-                else
-                {
-                    index = 0;
-                }
-
-                thisT.Rotate((Vector3.up * rotateSpeed * 35) * Time.deltaTime);
-            }
         }
-       
-
-        
-
     }
 
     void projectileUpdate()
@@ -355,7 +357,7 @@ public class AttackPattern : MonoBehaviour
     {
         facingDirections playerDirection;
 
-        if (thisT.transform.localPosition.x > thePlayer.transform.position.x)
+        if (this.transform.localPosition.x > thePlayer.transform.position.x)
         {
             playerDirection = facingDirections.LEFT;
         }
@@ -365,9 +367,9 @@ public class AttackPattern : MonoBehaviour
         }
 
         // add check for overriding left / right
-        if(getDistance(thisT.transform.localPosition.y , thePlayer.transform.position.y) > getDistance(thisT.transform.localPosition.x, thePlayer.transform.position.x))
+        if(getDistance(this.transform.localPosition.y , thePlayer.transform.position.y) > getDistance(this.transform.localPosition.x, thePlayer.transform.position.x))
         {
-            if(thisT.transform.localPosition.y > thePlayer.transform.position.y)
+            if(this.transform.localPosition.y > thePlayer.transform.position.y)
             {
                 playerDirection = facingDirections.DOWN;
             }
@@ -386,6 +388,47 @@ public class AttackPattern : MonoBehaviour
         float distance = Vector3.Distance(new Vector3( x1,0,0), new Vector3(x2, 0, 0));
         return distance;
     }
+
+    void returnToIdle()
+    {
+        if (!isIdlingAnimation)
+        {
+            isIdlingAnimation = true;
+            SetPlayerAnimation(AnimationTranslator("idle"));
+        }
+    }
+
+    private void SetPlayerAnimation(int i)
+    {
+        if (i > 1)
+        {
+            isIdlingAnimation = false;
+        }
+
+        if (i != currentAnimation)
+        {
+            bossAnimator.SetInteger("animation", i);
+        }
+    }
+
+    private int AnimationTranslator( string name)
+    {
+        foreach (var item in Animations)
+        {
+            if(item.name == name)
+            {
+                return item.index;
+            }
+        }
+
+        return 1;
+    }
+    //idle : 1
+    //damage : 2
+    //death : 3
+    //walk : 4
+    //run : 5
+    // get attack from data
 
     [System.Serializable]
     public class Location
@@ -448,5 +491,12 @@ public class AttackPattern : MonoBehaviour
         public bool complete = false;
     }
 
-    
+    [System.Serializable]
+    public class TinyDict
+    {
+        public string name;
+        public int index;
+    }
+
+
 }
