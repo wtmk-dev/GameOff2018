@@ -105,6 +105,7 @@ public class AttackPattern : MonoBehaviour
     {
         
         GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        sphere.transform.parent = transform;
         sphere.GetComponent<SphereCollider>().enabled = false;
         sphere.transform.localScale = new Vector3(1f, 1f, 1f);
         sphere.transform.position = thePlayer.transform.position;
@@ -112,6 +113,7 @@ public class AttackPattern : MonoBehaviour
        
         
         GameObject sphere1 = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        sphere.transform.parent = transform;
         sphere1.GetComponent<SphereCollider>().enabled = false;
         sphere1.transform.localScale = new Vector3(1f, 1f, 1f);
         sphere1.transform.position = this.transform.position;

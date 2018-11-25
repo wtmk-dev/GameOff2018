@@ -1930,6 +1930,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4769625596145618}
   - component: {fileID: 65693558501097300}
+  - component: {fileID: 114382179312039086}
   m_Layer: 0
   m_Name: LShield
   m_TagString: Shield
@@ -3396,6 +3397,7 @@ GameObject:
   - component: {fileID: 4750809028898816}
   - component: {fileID: 212450253376419296}
   - component: {fileID: 135545821492778938}
+  - component: {fileID: 114587959468701014}
   m_Layer: 0
   m_Name: Projectile
   m_TagString: Untagged
@@ -7190,6 +7192,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHp: 5
+--- !u!114 &114382179312039086
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1546929177246956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7e50a9c675604545a0a52122c8a0176, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isReflectable: 0
 --- !u!114 &114477611265206180
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7205,6 +7219,18 @@ MonoBehaviour:
   lWhip: {fileID: 1480616141679910}
   shoot: {fileID: 1927045228647032}
   lShield: {fileID: 1546929177246956}
+  reflectTime: 1.5
+--- !u!114 &114587959468701014
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1927045228647032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b900b1fcb5297644b14867c0dff0711, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114677429082197430
 MonoBehaviour:
   m_ObjectHideFlags: 1

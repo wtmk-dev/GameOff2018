@@ -11,11 +11,11 @@ public class Movement : MonoBehaviour {
 	private Rigidbody rig;
 	private Vector2 movement;
 	private float jumpGrav = -.5f;
-
+	private float distToGround;
 	private string floorTag = "Floor";
 	
 	private LevelUpController lvlController;
-
+	private Collider collider;
     public GameObject PlayerModel;
     private Animator playerAnimator;
     private int currentAnimation = 0;
@@ -32,12 +32,14 @@ public class Movement : MonoBehaviour {
     // }
 
     void OnCollisionEnter( Collision other ){
-		//Debug.Log( "OnCollisionEnter" );
+		Debug.Log( "OnCollisionEnter" );
 		if( other.gameObject.tag == floorTag ){
 			isGrounded = true;
 			isJumping = false;
             returnToIdle();
         }
+
+		Debug.Log( other.contacts );
 	}
 
 	void OnCollisionStay( Collision other ){
@@ -69,9 +71,11 @@ public class Movement : MonoBehaviour {
 	public void Init( LevelUpController lvlController ){
 		this.lvlController = lvlController;
 		rig = GetComponent<Rigidbody>();
+		collider = GetComponent<Collider>();
         playerAnimator = PlayerModel.GetComponent<Animator>();
         isMoveable = true;
 		isInit = true;
+		distToGround = collider.bounds.extents.y;
 	}
 
 	public void Kockback(){
@@ -111,11 +115,20 @@ public class Movement : MonoBehaviour {
 		rig.AddForce( movement, ForceMode.Impulse );
 	}
 
+	bool IsGrounded(){
+		return Physics.Raycast(transform.position, - Vector3.up, distToGround + 0.1f);
+	}
+
 	private void Jump(){
 		if( Input.GetKey( KeyCode.Space ) || Input.GetKey("joystick button 2") ){
 			if( isGrounded && !isJumping ){
 				lvlController.JumpExp();
-				StartCoroutine( JumpOverTime() );
+				if( IsGrounded() ){
+					StartCoroutine( JumpOverTime() );
+				}else{
+					Debug.Log( "I cant jump" );
+				}
+				
 			}
 		}
 		

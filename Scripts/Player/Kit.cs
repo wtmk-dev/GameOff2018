@@ -20,11 +20,17 @@ public class Kit : MonoBehaviour {
 
 	// projectile
 	public GameObject shoot;
+	private ShootController shootController;
 	private bool canShoot;
 
 	// Shield
 	public GameObject lShield;
+	private ShieldController shieldController;
 	private bool isBlocking;
+	public bool CanReflect {get; private set;}
+	[SerializeField]
+	[Range(0,100)]
+	private float reflectTime;
 
 	private float dpad;
 
@@ -34,14 +40,15 @@ public class Kit : MonoBehaviour {
 	void Awake(){
 		LoadResources();
 		DeactivateAll();
+		CanReflect = false;
+		canShoot = true;
 	}
 
 	void Update(){
 		if( isActive ){
-			dpad = Input.GetAxisRaw( "Vertical" );
 			DeployShield();
 			DeployWhip();
-			DeploySword();	
+			DeploySword();
 			DeployShoot();
 		}
 	}
@@ -57,6 +64,9 @@ public class Kit : MonoBehaviour {
 		goSwordReady = Instantiate( goSwordReady, transform.position, Quaternion.identity );
 		goSwordReady.transform.parent = transform;
 		swordReadyFX = goSwordReady.GetComponent<ParticleSystem>();
+		shieldController = lShield.GetComponent<ShieldController>();
+		shootController = shoot.GetComponent<ShootController>();
+		shootController.Init();
 	}
 
 	private void DeactivateAll(){
@@ -65,21 +75,33 @@ public class Kit : MonoBehaviour {
 		lWhip.SetActive( false );
 	}
 	private void DeployShield(){
-		if( !isBlocking ){
-			if( Input.GetKeyDown( KeyCode.Mouse0 ) && !isAttacking || Input.GetKeyDown("joystick button 4") ){
-				lShield.SetActive( true );
-				isBlocking = true;
+		if( !isBlocking  && !isAttacking && !isSwording ){
+			if( Input.GetKeyDown( KeyCode.Mouse0 ) || Input.GetKeyDown("joystick button 4") ){
+				StartCoroutine( ShieldReflect() );
 			}
-			
 		}
-		else if( isBlocking && !isAttacking ){
+		else if( isBlocking ){
 			if( Input.GetKeyUp( KeyCode.Mouse0 ) || Input.GetKeyUp("joystick button 4") ){
+				CanReflect = false;
 				lShield.SetActive( false );
 				isBlocking = false;
+				StopCoroutine( ShieldReflect() );
 			}
-
 		}
+	}
 
+	private IEnumerator ShieldReflect(){
+		isBlocking = true;
+		lShield.SetActive( true );
+		float elapsed = 0;
+		CanReflect = true;
+		shieldController.isReflectable = CanReflect;
+		do{
+			elapsed += Time.deltaTime;
+			yield return null;
+		}while( elapsed < reflectTime );
+		CanReflect = false;
+		shieldController.isReflectable = CanReflect;
 	}
 
 	private void DeployWhip(){
@@ -163,13 +185,15 @@ public class Kit : MonoBehaviour {
 	}
 
 	private void DeployShoot(){
-		if( canShoot ){
+		//if( canShoot ){
 			if( Input.GetKeyDown( KeyCode.B ) ){
 				shoot.SetActive( true );
 				canShoot = false;
+				shootController.Fire();
+				Debug.Log( "i shot" );
 			}
 		
-		}
+		//}
 		
 
 	}
