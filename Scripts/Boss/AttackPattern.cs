@@ -180,6 +180,7 @@ public class AttackPattern : MonoBehaviour
                     Projectile newBullet = JsonUtility.FromJson<Projectile>(bullet);
                     newBullet.visual = Instantiate(item.projectile.visual);
                     newBullet.visual.transform.position = this.transform.position;
+                    newBullet.startPosition = this.transform.position;
                     newBullet.targetPosition = RotatePointAroundPivot(overshoot, this.transform.localPosition, angle); // thePlayer.transform.position is on target
 
                     newBullet.visual.GetComponent<Shootable>().SetBulletData(newBullet);

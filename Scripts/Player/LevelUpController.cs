@@ -24,7 +24,7 @@ public class LevelUpController : MonoBehaviour {
     }
 
     public float GetJump(){
-        float jump = 4.5f;
+        float jump = 6f;
         jump += (float) (player.Jump / 10f);
         if( jump > 10f ){
             jump = 10f;
