@@ -12,6 +12,8 @@ public class ShieldController : MonoBehaviour {
 		if( testInterface != null ){
 			if( testInterface.Reflectable && isReflectable ){
 				Debug.Log( "I WAS HIT" );
+                Shootable testShot = other.GetComponent<Shootable>();
+                testShot.ReversePostions();//call bullets reflect
 			}
 		}
 	}

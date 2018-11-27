@@ -127,7 +127,7 @@ public class AttackPattern : MonoBehaviour
 
     bool EnemyWithinRange( float range)
     {
-        StartCoroutine(playerTest());
+        //StartCoroutine(playerTest());
         print(Vector3.Distance(thePlayer.transform.localPosition, this.transform.position));
         if (Vector3.Distance(thePlayer.transform.position, this.transform.position) <= range)
         {
@@ -181,7 +181,10 @@ public class AttackPattern : MonoBehaviour
                     newBullet.visual = Instantiate(item.projectile.visual);
                     newBullet.visual.transform.position = this.transform.position;
                     newBullet.targetPosition = RotatePointAroundPivot(overshoot, this.transform.localPosition, angle); // thePlayer.transform.position is on target
-                    projectiles.Add(newBullet);
+
+                    newBullet.visual.GetComponent<Shootable>().SetBulletData(newBullet);
+                    newBullet.visual.GetComponent<Shootable>().Reflectable = true;// set reflect to true
+                    //projectiles.Add(newBullet);
                 }
             }
             else
