@@ -6,17 +6,13 @@ using UnityEngine;
 public class DM : MonoBehaviour {
 
 	public static Action<GameObject> OnPlayerCreated;
-
 	public bool isDebug = false;
-
 	private static readonly System.Random random = new System.Random(); 
 	private static readonly object syncLock = new object();
-
 	private CameraController cameraController;
 	private PlayerController playerController;
 	private MapController mapController;
 	private DMView view;
-
 	private GameObject goPlayer;
 
 	void Awake(){
@@ -29,7 +25,6 @@ public class DM : MonoBehaviour {
 		view = GameObject.FindWithTag( DMView.TAG ).GetComponent<DMView>();
 		cameraController = GameObject.FindWithTag( CameraController.TAG ).GetComponent<CameraController>();
 		mapController = GetComponent<MapController>();
-
 	}
 
 	void Start(){
@@ -40,12 +35,11 @@ public class DM : MonoBehaviour {
 
 	public void StartButton() {
 		view.Init( this );
-
 		goPlayer = Instantiate( goPlayer , transform.position, Quaternion.identity );
 		playerController = goPlayer.GetComponent<PlayerController>();
 		playerController.Init();
-
 		cameraController.Init( playerController.GetPlayerTransform() );
+		view.StartScreenFade();
 	}
 
 	public static int RandomNumber(int min, int max){
