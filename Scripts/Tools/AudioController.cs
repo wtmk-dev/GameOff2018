@@ -13,12 +13,14 @@ public class AudioController : MonoBehaviour {
 		DM.OnGameStarted += GameStart;
 		StartBossTrigger.OnBossStart += MainGameLoop;
 		PlayerController.OnPlayerKilled += GameOver;
+		BossController.OnBossKilled += WinMusic;
 	}
 
 	void OnDisable(){
 		DM.OnGameStarted -= GameStart;
 		StartBossTrigger.OnBossStart -= MainGameLoop;
 		PlayerController.OnPlayerKilled -= GameOver;
+		BossController.OnBossKilled -= WinMusic;
 	}
 
 	void Awake(){
@@ -51,7 +53,7 @@ public class AudioController : MonoBehaviour {
 
 	private void WinMusic(){
 		audioSource.Stop();
-		SetAudioClip( audioClips[ 6 ] );
+		//SetAudioClip( audioClips[ 4 ] );
 	}
 
 	private void SetAudioClip( AudioClip ac ){

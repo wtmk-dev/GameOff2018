@@ -12,6 +12,7 @@ public class GameOverView : MonoBehaviour {
 
 	public void Retry(){
 		SceneManager.LoadScene( "SampleScene" );
+		StartBossTrigger.isActive = false;
 	}
 
 }

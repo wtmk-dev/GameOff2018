@@ -9,6 +9,7 @@ public class DMView : MonoBehaviour {
 	public GameObject startButton;
 	public GameObject goIntroScreen;
 	public GameObject goGameOverScreen;
+	public GameObject goYouWinScreen;
 	private DM controller;
 	private Image startImg;
 	[SerializeField]
@@ -16,10 +17,13 @@ public class DMView : MonoBehaviour {
 
 	void OnEnable( ){
 		PlayerController.OnPlayerKilled += DisplayGameOVerScreen;
+		BossController.OnBossKilled += DisplayYouWinScreen;
 	}
 
 	void OnDisable( ){
 		PlayerController.OnPlayerKilled -= DisplayGameOVerScreen;
+		BossController.OnBossKilled -= DisplayYouWinScreen;
+
 	}
 
 	public void Init( DM controller ){
@@ -42,6 +46,10 @@ public class DMView : MonoBehaviour {
 
 	private void DisplayGameOVerScreen(){
 		goGameOverScreen.SetActive( true );
+	}
+
+	private void DisplayYouWinScreen(){
+		goYouWinScreen.SetActive( true );
 	}
 
 	IEnumerator FadeImage(bool fadeAway)

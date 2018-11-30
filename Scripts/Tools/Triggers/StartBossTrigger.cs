@@ -6,12 +6,17 @@ public class StartBossTrigger : MonoBehaviour {
 
 	public delegate void BossStart( GameObject player );
 	public static event BossStart OnBossStart;
+	public static bool isActive = false;
 
 	void OnCollisionEnter( Collision other ){
-		if( other.gameObject.tag == "Player" ){
-			if( OnBossStart != null ){
-				OnBossStart( other.gameObject );
+		if( !isActive ){
+			if( other.gameObject.tag == "Player" ){
+				isActive = true;
+				if( OnBossStart != null ){
+					OnBossStart( other.gameObject );
+				}
 			}
 		}
+		
 	}
 }
