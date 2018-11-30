@@ -370,6 +370,7 @@ GameObject:
   - component: {fileID: 95724097917709846}
   - component: {fileID: 114038119208128094}
   - component: {fileID: 114805258117861588}
+  - component: {fileID: 136979706577102352}
   m_Layer: 0
   m_Name: SJ001
   m_TagString: Untagged
@@ -2022,6 +2023,19 @@ MonoBehaviour:
   displayType: 0
   displayMode: 1
   size: 0.3
+--- !u!136 &136979706577102352
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1416190161291622}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!137 &137182974505951198
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

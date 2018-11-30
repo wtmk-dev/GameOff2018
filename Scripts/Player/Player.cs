@@ -24,6 +24,7 @@ public class Player {
 		job = GetJob( roll, maxHp );
 		SetStartingJob( job );
 		Debug.Log( "Green " + job + " needs food badly." );
+		Debug.Log( Blood );
 	}
 
 	private Job GetJob( int roll, int maxHp ){
@@ -35,9 +36,11 @@ public class Player {
 		}
 		else if( roll == 2 ){
 			job = Job.THIEF;
+			Blood = maxHp;
 		} 
 		else if( roll == 3 ){
-			job = Job.MAGE -1;
+			job = Job.MAGE;
+			Blood = maxHp -1;
 		}
 
 		return job;

@@ -5,14 +5,14 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
+	public static readonly string TAG = "Player";
 	public delegate void PlayerKilled();
 	public static event PlayerKilled OnPlayerKilled;
 	public event Action<int> OnHealthChange;
-	public static readonly string TAG = "Player";
 	[SerializeField]
 	[Range(0,100)]
 	private int maxHp;
-	private bool isInvincible;
+	private bool isInvincible, isActive;
 	private Player player;
 	private PlayerView view;
 	private Movement movement;
@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour {
 		kit = GetComponent<Kit>();
 		lvlController = GetComponent<LevelUpController>();
 		player = new Player( maxHp );
-
+		Debug.Log( player.Blood );
 		view.Init( player, this );
 		lvlController.Init( player );
 		movement.Init( lvlController );
@@ -40,6 +40,8 @@ public class PlayerController : MonoBehaviour {
 		if( view != null ){
 			view.OnDamageComplete += DamageComplete;
 		}
+
+		isActive = true;
 	}
 
 	void OnCollisionEnter(Collision other) {
@@ -47,9 +49,21 @@ public class PlayerController : MonoBehaviour {
 			Debug.Log( other.gameObject.tag );
 		}
 
+		
+	}
+
+	void OnTriggerEnter( Collider other ){
 		if( !isInvincible && other.gameObject.tag == "Boss" ){
+			Debug.Log( "i was hit" );
+			Debug.Log( player.Blood );
 			isInvincible = true;
 			LowerBloodByAmount( 1 );
+		}
+	}
+
+	void Update(){
+		if( isActive ){
+			Kill();
 		}
 	}
 
@@ -58,7 +72,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	private void Kill(){
-		if( player.Blood <= 0 ){
+		if( player.Blood < 0 ){
 			if( OnPlayerKilled != null ){
 				OnPlayerKilled();
 			}
@@ -68,7 +82,7 @@ public class PlayerController : MonoBehaviour {
 
 	private void LowerBloodByAmount( int amount ){
 		player.Blood -= amount;
-//		Debug.Log( model.HP );
+		Debug.Log( player.Blood );
 		if( player.Blood < 0 ){
 			Debug.Log( "the world is doomed...");
 		}
@@ -77,7 +91,6 @@ public class PlayerController : MonoBehaviour {
 			OnHealthChange( player.Blood );
 		}
 
-		
 	}
 
 	private void DamageComplete(){

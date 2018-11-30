@@ -46,7 +46,6 @@ public class PlayerView : MonoBehaviour {
 
 
     private IEnumerator ChangeHpPct( float pct ){
-//        Debug.Log( pct );
         float pre = foregroundImage.fillAmount;
         float elapsed = 0f;
 

@@ -8,10 +8,19 @@ public class DMView : MonoBehaviour {
 	public static readonly string TAG = "DMView";
 	public GameObject startButton;
 	public GameObject goIntroScreen;
+	public GameObject goGameOverScreen;
 	private DM controller;
 	private Image startImg;
 	[SerializeField]
 	private TextMeshProUGUI startText;
+
+	void OnEnable( ){
+		PlayerController.OnPlayerKilled += DisplayGameOVerScreen;
+	}
+
+	void OnDisable( ){
+		PlayerController.OnPlayerKilled -= DisplayGameOVerScreen;
+	}
 
 	public void Init( DM controller ){
 		this.controller = controller;
@@ -29,6 +38,10 @@ public class DMView : MonoBehaviour {
 		startImg = goIntroScreen.GetComponent<Image>();
 		startText.text = "";
 		StartCoroutine(FadeImage(true));
+	}
+
+	private void DisplayGameOVerScreen(){
+		goGameOverScreen.SetActive( true );
 	}
 
 	IEnumerator FadeImage(bool fadeAway)
