@@ -24,7 +24,7 @@ public class Player {
 		job = GetJob( roll, maxHp );
 		SetStartingJob( job );
 		Debug.Log( "Green " + job + " needs food badly." );
-		Debug.Log( Blood );
+		this.maxHp = maxHp;
 	}
 
 	private Job GetJob( int roll, int maxHp ){

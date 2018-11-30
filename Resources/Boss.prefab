@@ -370,10 +370,10 @@ GameObject:
   - component: {fileID: 95724097917709846}
   - component: {fileID: 114038119208128094}
   - component: {fileID: 114805258117861588}
-  - component: {fileID: 136979706577102352}
+  - component: {fileID: 65532849428011446}
   m_Layer: 0
   m_Name: SJ001
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1713,6 +1713,18 @@ Transform:
   m_Father: {fileID: 4340428116482738}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &65532849428011446
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1416190161291622}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.25658202, y: 0.21189547, z: 0.266324}
+  m_Center: {x: 0.0061141253, y: 0.018420935, z: -0.04487957}
 --- !u!95 &95724097917709846
 Animator:
   serializedVersion: 3
@@ -2023,19 +2035,6 @@ MonoBehaviour:
   displayType: 0
   displayMode: 1
   size: 0.3
---- !u!136 &136979706577102352
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1416190161291622}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!137 &137182974505951198
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

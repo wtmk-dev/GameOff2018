@@ -38,9 +38,11 @@ public class PlayerView : MonoBehaviour {
 	}
 
 	 private void UpdateHealthBar( int currentHp ){
-       Debug.Log( currentHp );
+        Debug.Log( currentHp );
+	    Debug.Log( player.maxHp );
         Debug.Log( "IM HIT" );
-        float currentHpPct = (float) currentHp / (float) player.maxHp;
+		float currentHpPct = (float) currentHp / (float) player.maxHp;
+		Debug.Log( currentHpPct );
         StartCoroutine( ChangeHpPct( currentHpPct ) );
     }
 
@@ -56,7 +58,7 @@ public class PlayerView : MonoBehaviour {
         }
 
         foregroundImage.fillAmount = pct;
-		yield return new WaitForSecondsRealtime( 3f );
+		yield return new WaitForSecondsRealtime( 1f );
         OnChangeHpPctComplete( pct );
     }
 

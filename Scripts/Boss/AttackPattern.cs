@@ -183,7 +183,7 @@ public class AttackPattern : MonoBehaviour
                     newBullet.startPosition = this.transform.position;
                     newBullet.targetPosition = RotatePointAroundPivot(overshoot, this.transform.localPosition, angle); // thePlayer.transform.position is on target
 
-                    newBullet.visual.GetComponent<Shootable>().SetBulletData(newBullet);
+                    newBullet.visual.GetComponent<Shootable>().SetBulletData( newBullet );
                     newBullet.visual.GetComponent<Shootable>().Reflectable = true;// set reflect to true
                     //projectiles.Add(newBullet);
                 }
