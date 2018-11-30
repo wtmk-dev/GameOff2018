@@ -2082,7 +2082,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4770332663398236}
   - component: {fileID: 20670839513764348}
-  - component: {fileID: 81313363071592230}
   - component: {fileID: 45439680461740518}
   m_Layer: 0
   m_Name: Camera
@@ -7101,13 +7100,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.3951597, y: 1.5675131, z: 0.22740877}
   m_Center: {x: -0.00666966, y: 0.19235769, z: 0.13629562}
---- !u!81 &81313363071592230
-AudioListener:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1581153329265218}
-  m_Enabled: 1
 --- !u!95 &95325550596301444
 Animator:
   serializedVersion: 3

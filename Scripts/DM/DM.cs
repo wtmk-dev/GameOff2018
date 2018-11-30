@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class DM : MonoBehaviour {
 
+	public delegate void GameStarted();
+	public static event GameStarted OnGameStarted;
 	public static Action<GameObject> OnPlayerCreated;
 	public bool isDebug = false;
 	private static readonly System.Random random = new System.Random(); 
@@ -40,6 +42,11 @@ public class DM : MonoBehaviour {
 		playerController.Init();
 		cameraController.Init( playerController.GetPlayerTransform() );
 		view.StartScreenFade();
+
+		if( OnGameStarted != null ){
+			OnGameStarted();
+		}
+		
 	}
 
 	public static int RandomNumber(int min, int max){
